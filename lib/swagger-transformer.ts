@@ -1,4 +1,6 @@
 import { INestApplication } from '@nestjs/common';
+import { VERSION_NEUTRAL } from '@nestjs/common/interfaces/version-options.interface';
+import { VersioningType } from '@nestjs/common/enums/version-type.enum';
 import { filter, groupBy, keyBy, mapValues, omit } from 'lodash';
 import { OpenAPIObject } from './interfaces';
 import { ModuleRoute } from './interfaces/module-route.interface';
@@ -9,9 +11,12 @@ export class SwaggerTransformer {
     denormalizedDoc: (Partial<OpenAPIObject> & Record<'root', any>)[]
   ): Record<'paths', OpenAPIObject['paths']> {
     const roots = filter(denormalizedDoc, (r) => r.root);
-    const groupedByPath = groupBy(
-      roots,
-      ({ root }: Record<'root', any>) => root.path
+    const groupedByPath = groupBy(roots, ({ root }: Record<'root', any>) =>
+      root.versionType === VersioningType.HEADER &&
+      root.version &&
+      root.version !== VERSION_NEUTRAL
+        ? `${root.path} version:${root.version}`
+        : root.path
     );
     const paths = mapValues(groupedByPath, (routes) => {
       const keyByMethod = keyBy(

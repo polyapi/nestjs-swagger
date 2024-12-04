@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/api/v1": {
+    "/api": {
       "get": {
-        "operationId": "AppController_getHello_v1",
+        "operationId": "AppController_getHello",
         "parameters": [
           {
             "name": "x-tenant-id",
@@ -20,12 +20,20 @@
         },
         "tags": [
           "App"
-        ]
+        ],
+        "version": [
+          "1",
+          "2"
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
-    "/api/v2": {
+    "/api/alias1": {
       "get": {
-        "operationId": "AppController_getHello_v2",
+        "operationId": "AppController_withAliases[0]",
         "parameters": [
           {
             "name": "x-tenant-id",
@@ -42,12 +50,20 @@
         },
         "tags": [
           "App"
-        ]
+        ],
+        "version": [
+          "1",
+          "2"
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
-    "/api/v1/alias1": {
+    "/api/alias2": {
       "get": {
-        "operationId": "AppController_withAliases[0]_v1",
+        "operationId": "AppController_withAliases[1]",
         "parameters": [
           {
             "name": "x-tenant-id",
@@ -64,12 +80,20 @@
         },
         "tags": [
           "App"
-        ]
+        ],
+        "version": [
+          "1",
+          "2"
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
-    "/api/v1/alias2": {
+    "/api/express:colon:another/{prop}": {
       "get": {
-        "operationId": "AppController_withAliases[1]_v1",
+        "operationId": "AppController_withColonExpress",
         "parameters": [
           {
             "name": "x-tenant-id",
@@ -86,12 +110,20 @@
         },
         "tags": [
           "App"
-        ]
+        ],
+        "version": [
+          "1",
+          "2"
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
-    "/api/v2/alias1": {
+    "/api/fastify:{colon}:{another}/{prop}": {
       "get": {
-        "operationId": "AppController_withAliases[2]_v2",
+        "operationId": "AppController_withColonFastify",
         "parameters": [
           {
             "name": "x-tenant-id",
@@ -108,117 +140,15 @@
         },
         "tags": [
           "App"
-        ]
-      }
-    },
-    "/api/v2/alias2": {
-      "get": {
-        "operationId": "AppController_withAliases[3]_v2",
-        "parameters": [
-          {
-            "name": "x-tenant-id",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "App"
-        ]
-      }
-    },
-    "/api/v1/express:colon:another/{prop}": {
-      "get": {
-        "operationId": "AppController_withColonExpress_v1",
-        "parameters": [
-          {
-            "name": "x-tenant-id",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
+        "version": [
+          "1",
+          "2"
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "App"
-        ]
-      }
-    },
-    "/api/v2/express:colon:another/{prop}": {
-      "get": {
-        "operationId": "AppController_withColonExpress_v2",
-        "parameters": [
-          {
-            "name": "x-tenant-id",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "App"
-        ]
-      }
-    },
-    "/api/v1/fastify:{colon}:{another}/{prop}": {
-      "get": {
-        "operationId": "AppController_withColonFastify_v1",
-        "parameters": [
-          {
-            "name": "x-tenant-id",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "App"
-        ]
-      }
-    },
-    "/api/v2/fastify:{colon}:{another}/{prop}": {
-      "get": {
-        "operationId": "AppController_withColonFastify_v2",
-        "parameters": [
-          {
-            "name": "x-tenant-id",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "App"
-        ]
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats": {
@@ -329,6 +259,10 @@
           "cats",
           "create cats"
         ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        },
         "x-foo": {
           "test": "bar "
         }
@@ -508,6 +442,10 @@
           "tag2",
           "tag1"
         ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        },
         "x-codeSamples": [
           {
             "lang": "JavaScript",
@@ -580,7 +518,11 @@
         ],
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats/{id}": {
@@ -648,6 +590,10 @@
         "tags": [
           "cats"
         ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        },
         "x-auth-type": "NONE"
       }
     },
@@ -798,7 +744,11 @@
         ],
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats/bulk": {
@@ -861,7 +811,11 @@
         "summary": "Find all cats in bulk",
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       },
       "post": {
         "operationId": "CatsController_createBulk",
@@ -916,7 +870,11 @@
         ],
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats/as-form-data": {
@@ -989,7 +947,11 @@
         "summary": "Create cat",
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats/site*": {
@@ -1033,7 +995,11 @@
         ],
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats/with-enum/{type}": {
@@ -1090,7 +1056,11 @@
         ],
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats/with-enum-named/{type}": {
@@ -1144,7 +1114,11 @@
         ],
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats/with-random-query": {
@@ -1210,7 +1184,11 @@
         ],
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats/download": {
@@ -1269,7 +1247,11 @@
         "summary": "",
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     },
     "/api/cats/raw-schema-response": {
@@ -1345,7 +1327,11 @@
         ],
         "tags": [
           "cats"
-        ]
+        ],
+        "versionType": {
+          "type": 1,
+          "header": "x-api-version"
+        }
       }
     }
   },
