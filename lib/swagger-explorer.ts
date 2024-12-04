@@ -380,6 +380,8 @@ export class SwaggerExplorer {
           method: RequestMethod[requestMethod].toLowerCase(),
           path: fullPath === '' ? '/' : fullPath,
           operationId: this.getOperationId(instance, methodKey, pathVersion),
+          version: methodVersion || controllerVersion,
+          versionType: applicationConfig.getVersioning(),
           ...apiExtension
         };
       })
@@ -404,7 +406,7 @@ export class SwaggerExplorer {
   ) {
     let versions: string[] = [];
 
-    if (!versionValue || versioningOptions?.type !== VersioningType.URI) {
+    if (!versionValue) {
       return versions;
     }
 
