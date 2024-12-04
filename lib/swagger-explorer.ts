@@ -364,6 +364,8 @@ export class SwaggerExplorer {
               instance,
               method.name
             )}_${requestMethod.toLowerCase()}`,
+            version: methodVersion || controllerVersion,
+            versionType: applicationConfig.getVersioning(),
             ...apiExtension
           }));
         }
@@ -378,8 +380,6 @@ export class SwaggerExplorer {
           method: RequestMethod[requestMethod].toLowerCase(),
           path: fullPath === '' ? '/' : fullPath,
           operationId: this.getOperationId(instance, methodKey, pathVersion),
-          version: methodVersion || controllerVersion,
-          versionType: applicationConfig.getVersioning(),
           ...apiExtension
         };
       })
