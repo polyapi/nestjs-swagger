@@ -53,4 +53,9 @@ export interface SwaggerDocumentOptions {
    * @default true
    */
   autoTagControllers?: boolean;
+
+  /*
+   * Filter to routes of the matching versions as specified using the `@Version()` decorator
+   */
+  includeVersions?: string[];
 }
