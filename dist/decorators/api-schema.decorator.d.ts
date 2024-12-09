@@ -1,5 +1,6 @@
 import { SchemaObjectMetadata } from '../interfaces/schema-object-metadata.interface';
 export interface ApiSchemaOptions extends Pick<SchemaObjectMetadata, 'name'> {
-    name: string;
+    name?: string;
+    description?: string;
 }
-export declare function ApiSchema(options: ApiSchemaOptions): ClassDecorator;
+export declare function ApiSchema(options?: ApiSchemaOptions): ClassDecorator;

@@ -1,4 +1,15 @@
 "use strict";
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SchemaObjectFactory = void 0;
 const shared_utils_1 = require("@nestjs/common/utils/shared.utils");
@@ -130,7 +141,8 @@ class SchemaObjectFactory {
             return '';
         }
         const extensionProperties = Reflect.getMetadata(constants_1.DECORATORS.API_EXTENSION, type) || {};
-        const typeDefinition = Object.assign({ type: 'object', properties: (0, lodash_1.mapValues)((0, lodash_1.keyBy)(propertiesWithType, 'name'), (property) => {
+        const { schemaName, schemaProperties } = this.getSchemaMetadata(type);
+        const typeDefinition = Object.assign(Object.assign({ type: 'object', properties: (0, lodash_1.mapValues)((0, lodash_1.keyBy)(propertiesWithType, 'name'), (property) => {
                 const keysToOmit = [
                     'name',
                     'isArray',
@@ -142,7 +154,7 @@ class SchemaObjectFactory {
                     return (0, lodash_1.omit)(property, keysToOmit);
                 }
                 return (0, lodash_1.omit)(property, [...keysToOmit, 'required']);
-            }) }, extensionProperties);
+            }) }, extensionProperties), schemaProperties);
         const typeDefinitionRequiredFields = propertiesWithType
             .filter((property) => (property.required != false && !Array.isArray(property.required)) ||
             ('selfRequired' in property && property.selfRequired != false))
@@ -150,17 +162,14 @@ class SchemaObjectFactory {
         if (typeDefinitionRequiredFields.length > 0) {
             typeDefinition['required'] = typeDefinitionRequiredFields;
         }
-        const schemaName = this.getSchemaName(type);
         schemas[schemaName] = typeDefinition;
         return schemaName;
     }
-    getSchemaName(type) {
-        const customSchema = Reflect.getOwnMetadata(constants_1.DECORATORS.API_SCHEMA, type);
-        if (!customSchema || customSchema.length === 0) {
-            return type.name;
-        }
-        const schemaName = customSchema[customSchema.length - 1].name;
-        return schemaName !== null && schemaName !== void 0 ? schemaName : type.name;
+    getSchemaMetadata(type) {
+        var _a, _b;
+        const schemas = (_a = Reflect.getOwnMetadata(constants_1.DECORATORS.API_SCHEMA, type)) !== null && _a !== void 0 ? _a : [];
+        const _c = (_b = schemas[schemas.length - 1]) !== null && _b !== void 0 ? _b : {}, { name } = _c, schemaProperties = __rest(_c, ["name"]);
+        return { schemaName: name !== null && name !== void 0 ? name : type.name, schemaProperties };
     }
     mergePropertyWithMetadata(key, prototype, schemas, pendingSchemaRefs, metadata) {
         if (!metadata) {

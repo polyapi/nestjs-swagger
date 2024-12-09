@@ -7,7 +7,8 @@ export declare class SwaggerModule {
     static loadPluginMetadata(metadataFn: () => Promise<Record<string, any>>): Promise<void>;
     protected static serveStatic(finalPath: string, app: INestApplication, customStaticPath?: string): void;
     protected static serveDocuments(finalPath: string, urlLastSubdirectory: string, httpAdapter: HttpServer, documentOrFactory: OpenAPIObject | (() => OpenAPIObject), options: {
-        swaggerUiEnabled: boolean;
+        ui: boolean;
+        raw: boolean | Array<'json' | 'yaml'>;
         jsonDocumentUrl: string;
         yamlDocumentUrl: string;
         swaggerOptions: SwaggerCustomOptions;
@@ -17,6 +18,9 @@ export declare class SwaggerModule {
         jsonDocumentUrl: string;
         yamlDocumentUrl: string;
         swaggerOptions: SwaggerCustomOptions;
+    }, serveOptions: {
+        serveJson: boolean;
+        serveYaml: boolean;
     }): void;
     static setup(path: string, app: INestApplication, documentOrFactory: OpenAPIObject | (() => OpenAPIObject), options?: SwaggerCustomOptions): void;
 }

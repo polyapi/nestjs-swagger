@@ -120,7 +120,12 @@ export declare class SchemaObjectFactory {
     private createQueryOrParamSchema;
     extractPropertiesFromType(type: Type<unknown>, schemas: Record<string, SchemaObject>, pendingSchemasRefs?: string[]): ParameterObject[];
     exploreModelSchema(type: Type<unknown> | Function, schemas: Record<string, SchemaObject>, pendingSchemasRefs?: string[]): string;
-    getSchemaName(type: Function | Type<unknown>): string;
+    getSchemaMetadata(type: Function | Type<unknown>): {
+        schemaName: string;
+        schemaProperties: {
+            description?: string;
+        };
+    };
     mergePropertyWithMetadata(key: string, prototype: Type<unknown>, schemas: Record<string, SchemaObject>, pendingSchemaRefs: string[], metadata?: SchemaObjectMetadata): SchemaObjectMetadata | ReferenceObject | ParameterObject | (SchemaObject & {
         selfRequired?: boolean;
     });
