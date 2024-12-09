@@ -17,7 +17,7 @@ class SwaggerScanner {
         this.explorer = new swagger_explorer_1.SwaggerExplorer(this.schemaObjectFactory);
     }
     scanApplication(app, options) {
-        const { deepScanRoutes, include: includedModules = [], extraModels = [], ignoreGlobalPrefix = false, operationIdFactory, linkNameFactory, autoTagControllers = true } = options;
+        const { deepScanRoutes, include: includedModules = [], extraModels = [], ignoreGlobalPrefix = false, operationIdFactory, linkNameFactory, autoTagControllers = true, includeVersions, } = options;
         const container = app.container;
         const internalConfigRef = app.config;
         const modules = this.getModules(container.getModules(), includedModules);
@@ -41,7 +41,7 @@ class SwaggerScanner {
         });
         const schemas = this.explorer.getSchemas();
         this.addExtraModels(schemas, extraModels);
-        return Object.assign(Object.assign({}, this.transformer.normalizePaths((0, lodash_1.flatten)(denormalizedPaths))), { components: {
+        return Object.assign(Object.assign({}, this.transformer.normalizePaths((0, lodash_1.flatten)(denormalizedPaths), includeVersions)), { components: {
                 schemas: schemas
             } });
     }

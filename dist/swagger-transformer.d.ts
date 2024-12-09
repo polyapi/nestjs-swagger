@@ -2,6 +2,6 @@ import { INestApplication } from '@nestjs/common';
 import { OpenAPIObject } from './interfaces';
 import { ModuleRoute } from './interfaces/module-route.interface';
 export declare class SwaggerTransformer {
-    normalizePaths(denormalizedDoc: (Partial<OpenAPIObject> & Record<'root', any>)[]): Record<'paths', OpenAPIObject['paths']>;
+    normalizePaths(denormalizedDoc: (Partial<OpenAPIObject> & Record<'root', any>)[], includeVersions?: Array<string>): Record<'paths', OpenAPIObject['paths']>;
     unescapeColonsInPath(app: INestApplication, moduleRoutes: ModuleRoute[]): ModuleRoute[];
 }
