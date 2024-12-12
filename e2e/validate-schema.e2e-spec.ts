@@ -1,4 +1,4 @@
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, VERSION_NEUTRAL, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { writeFileSync } from 'fs';
 import { OpenAPIV3 } from 'openapi-types';
@@ -23,7 +23,11 @@ describe('Validate OpenAPI schema', () => {
       logger: false
     });
     app.setGlobalPrefix('api/');
-    app.enableVersioning();
+    app.enableVersioning({
+      type: VersioningType.HEADER,
+      header: 'x-api-version',
+      defaultVersion: VERSION_NEUTRAL
+    });
 
     options = new DocumentBuilder()
       .setTitle('Cats example')
